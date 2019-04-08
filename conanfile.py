@@ -42,7 +42,7 @@ class SDL2MixerConan(ConanFile):
                        "nativemidi": True}
     _source_subfolder = "source_subfolder"
     _build_subfolder = "build_subfolder"
-    requires = "sdl2/2.0.8@bincrafters/stable"
+    requires = "sdl2/2.0.9@bincrafters/stable"
 
     def config_options(self):
         if self.settings.os == 'Windows':
