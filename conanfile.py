@@ -61,6 +61,7 @@ class SDL2MixerConan(ConanFile):
             self.requires.add("vorbis/1.3.6@bincrafters/stable")
         if self.options.opus:
             self.requires.add("opus/1.2.1@bincrafters/stable")
+            self.requires.add("opusfile/0.10@bincrafters/stable")
         if self.options.mikmod:
             self.requires.add("libmikmod/3.3.11.1@bincrafters/stable")
         if self.options.modplug:
