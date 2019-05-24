@@ -24,22 +24,28 @@ class SDL2MixerConan(ConanFile):
                "wav": [True, False],
                "flac": [True, False],
                "mpg123": [True, False],
+               "mad": [True, False],
                "ogg": [True, False],
                "opus": [True, False],
                "mikmod": [True, False],
                "modplug": [True, False],
-               "nativemidi": [True, False]}
+               "fluidsynth": [True, False],
+               "nativemidi": [True, False],
+               "tinymidi": [True, False]}
     default_options = {"shared": False,
                        "fPIC": True,
                        "cmd": False,  # needs sys/wait.h
                        "wav": True,
                        "flac": True,
                        "mpg123": True,
+                       "mad": True,
                        "ogg": True,
                        "opus": True,
                        "mikmod": True,
                        "modplug": True,
-                       "nativemidi": True}
+                       "fluidsynth": True,
+                       "nativemidi": True,
+                       "tinymidi": True}
     _source_subfolder = "source_subfolder"
     _build_subfolder = "build_subfolder"
     requires = "sdl2/2.0.9@bincrafters/stable"
@@ -47,6 +53,8 @@ class SDL2MixerConan(ConanFile):
     def config_options(self):
         if self.settings.os == 'Windows':
             del self.options.fPIC
+        if self.settings.os != "Linux":
+            del self.options.tinymidi
 
     def configure(self):
         del self.settings.compiler.libcxx
@@ -56,6 +64,8 @@ class SDL2MixerConan(ConanFile):
             self.requires.add("flac/1.3.2@bincrafters/stable")
         if self.options.mpg123:
             self.requires.add("libmpg123/1.25.10@bincrafters/stable")
+        if self.options.mad:
+            self.requires.add("libmad/0.15.1b@bincrafters/stable")
         if self.options.ogg:
             self.requires.add("ogg/1.3.3@bincrafters/stable")
             self.requires.add("vorbis/1.3.6@bincrafters/stable")
@@ -66,6 +76,11 @@ class SDL2MixerConan(ConanFile):
             self.requires.add("libmikmod/3.3.11.1@bincrafters/stable")
         if self.options.modplug:
             self.requires.add("libmodplug/0.8.9.0@bincrafters/stable")
+        if self.options.fluidsynth:
+            self.requires.add("fluidsynth/2.0.5@bincrafters/stable")
+        if self.settings.os == "Linux":
+            if self.options.tinymidi:
+                self.requires.add("tinymidi/20130325@bincrafters/stable")
 
     def source(self):
         source_url = "https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-%s.tar.gz" % self.version
@@ -81,14 +96,17 @@ class SDL2MixerConan(ConanFile):
         cmake.definitions["WAV"] = self.options.wav
         cmake.definitions["FLAC"] = self.options.flac
         cmake.definitions["MP3_MPG123"] = self.options.mpg123
+        cmake.definitions["MP3_MAD"] = self.options.mad
         cmake.definitions["OGG"] = self.options.ogg
         cmake.definitions["OPUS"] = self.options.opus
-        # TODO : fluidsynth
-        # TODO : mad (mp3)
-        # TODO : tinymidy
         cmake.definitions["MOD_MIKMOD"] = self.options.mikmod
         cmake.definitions["MOD_MODPLUG"] = self.options.modplug
         cmake.definitions["MID_NATIVE"] = self.options.nativemidi
+        cmake.definitions["MID_FLUIDSYNTH"] = self.options.fluidsynth
+        if self.settings.os == "Linux":
+            cmake.definitions["MID_TINYMIDI"] = self.options.tinymidi
+        else:
+            cmake.definitions["MID_TINYMIDI"] = False
 
         cmake.definitions['FLAC_DYNAMIC'] = self.options['flac'].shared if self.options.flac else False
         cmake.definitions['MP3_MPG123_DYNAMIC'] = self.options['libmpg123'].shared if self.options.mpg123 else False
