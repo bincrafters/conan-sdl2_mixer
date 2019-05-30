@@ -21,11 +21,14 @@ add_music_option(FLAC)
 add_music_option(OGG)
 add_music_option(OPUS)
 add_music_option(MP3_MPG123)
+add_music_option(MP3_MAD)
 add_music_option(MOD_MIKMOD)
 add_music_option(MOD_MODPLUG)
-add_music_option(NATIVE_MIDI)
+add_music_option(MID_NATIVE)
+add_music_option(MID_FLUIDSYNTH)
+add_music_option(MID_TINYMIDI)
 
-if(${NATIVE_MIDI})
+if(${MID_NATIVE})
 
 set(NATIVE_MIDI_SOURCES
 source_subfolder/native_midi/native_midi_common.c
@@ -90,7 +93,7 @@ add_library(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 
 target_include_directories(${PROJECT_NAME} PRIVATE "source_subfolder")
 
-if(${NATIVE_MIDI})
+if(${MID_NATIVE})
   target_include_directories(${PROJECT_NAME} PRIVATE "source_subfolder/native_midi")
 endif()
 

@@ -55,6 +55,8 @@ class SDL2MixerConan(ConanFile):
             del self.options.fPIC
         if self.settings.os != "Linux":
             del self.options.tinymidi
+        else:
+            del self.options.nativemidi
 
     def configure(self):
         del self.settings.compiler.libcxx
@@ -101,12 +103,13 @@ class SDL2MixerConan(ConanFile):
         cmake.definitions["OPUS"] = self.options.opus
         cmake.definitions["MOD_MIKMOD"] = self.options.mikmod
         cmake.definitions["MOD_MODPLUG"] = self.options.modplug
-        cmake.definitions["MID_NATIVE"] = self.options.nativemidi
         cmake.definitions["MID_FLUIDSYNTH"] = self.options.fluidsynth
         if self.settings.os == "Linux":
             cmake.definitions["MID_TINYMIDI"] = self.options.tinymidi
+            cmake.definitions["MID_NATIVE"] = False
         else:
             cmake.definitions["MID_TINYMIDI"] = False
+            cmake.definitions["MID_NATIVE"] = self.options.nativemidi
 
         cmake.definitions['FLAC_DYNAMIC'] = self.options['flac'].shared if self.options.flac else False
         cmake.definitions['MP3_MPG123_DYNAMIC'] = self.options['libmpg123'].shared if self.options.mpg123 else False
