@@ -132,3 +132,4 @@ class SDL2MixerConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.libs = ["sdl2_mixer"]
+        self.cpp_info.includedirs.append(os.path.join('include', 'SDL2'))
