@@ -10,7 +10,6 @@ class SDL2MixerConan(ConanFile):
     topics = ("conan", "sdl2_mixer", "mixer", "audio", "multimedia", "sound", "music")
     url = "https://github.com/bincrafters/conan-sdl2_mixer"
     homepage = "https://www.libsdl.org/projects/SDL_mixer/"
-    author = "Bincrafters <bincrafters@gmail.com>"
     license = "Zlib"
     exports = ["LICENSE.md"]
     exports_sources = ["CMakeLists.txt"]
