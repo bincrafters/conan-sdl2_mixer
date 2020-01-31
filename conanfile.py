@@ -11,7 +11,6 @@ class SDL2MixerConan(ConanFile):
     url = "https://github.com/bincrafters/conan-sdl2_mixer"
     homepage = "https://www.libsdl.org/projects/SDL_mixer/"
     license = "Zlib"
-    exports = ["LICENSE.md"]
     exports_sources = ["CMakeLists.txt"]
     generators = "cmake"
     settings = "os", "arch", "compiler", "build_type"
@@ -45,7 +44,7 @@ class SDL2MixerConan(ConanFile):
                        "tinymidi": True}
     _source_subfolder = "source_subfolder"
     _build_subfolder = "build_subfolder"
-    requires = "sdl2/2.0.9@bincrafters/stable"
+    requires = "sdl2/2.0.10@bincrafters/stable"
 
     def config_options(self):
         if self.settings.os == 'Windows':
@@ -71,7 +70,7 @@ class SDL2MixerConan(ConanFile):
             self.requires.add("vorbis/1.3.6")
         if self.options.opus:
             self.requires.add("opus/1.3.1")
-            self.requires.add("opusfile/0.10@bincrafters/stable")
+            self.requires.add("opusfile/0.11")
         if self.options.mikmod:
             self.requires.add("libmikmod/3.3.11.1@bincrafters/stable")
         if self.options.modplug:
