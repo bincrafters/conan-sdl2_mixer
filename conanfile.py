@@ -64,7 +64,7 @@ class SDL2MixerConan(ConanFile):
         if self.options.mpg123:
             self.requires.add("libmpg123/1.25.10@bincrafters/stable")
         if self.options.mad:
-            self.requires.add("libmad/0.15.1b@bincrafters/stable")
+            self.requires.add("libmad/0.15.1b")
         if self.options.ogg:
             self.requires.add("ogg/1.3.4")
             self.requires.add("vorbis/1.3.6")
