@@ -1,6 +1,5 @@
 from conans import ConanFile, CMake, tools
 import os
-import shutil
 
 
 class SDL2MixerConan(ConanFile):
@@ -42,9 +41,10 @@ class SDL2MixerConan(ConanFile):
                        "fluidsynth": True,
                        "nativemidi": True,
                        "tinymidi": True}
+    requires = "sdl2/2.0.10@bincrafters/stable"
     _source_subfolder = "source_subfolder"
     _build_subfolder = "build_subfolder"
-    requires = "sdl2/2.0.10@bincrafters/stable"
+    _cmake = None
 
     def config_options(self):
         if self.settings.os == 'Windows':
@@ -87,9 +87,12 @@ class SDL2MixerConan(ConanFile):
                   sha256="b4cf5a382c061cd75081cf246c2aa2f9df8db04bdda8dcdc6b6cca55bede2419")
         os.rename("SDL2_mixer-" + self.version, self._source_subfolder)
 
-        shutil.rmtree(os.path.join(self._source_subfolder, "external"))
+        tools.rmdir(os.path.join(self._source_subfolder, "external"))
 
     def _configure_cmake(self):
+        if self._cmake:
+            return self._cmake 
+
         cmake = CMake(self)
         cmake.definitions["CMD"] = self.options.cmd
         cmake.definitions["WAV"] = self.options.wav
@@ -116,7 +119,9 @@ class SDL2MixerConan(ConanFile):
         cmake.definitions['MOD_MODPLUG_DYNAMIC'] = self.options['libmodplug'].shared if self.options.modplug else False
 
         cmake.configure(build_folder=self._build_subfolder)
-        return cmake
+        self._cmake = cmake
+
+        return self._cmake
 
     def build(self):
         cmake = self._configure_cmake()
