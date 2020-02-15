@@ -83,7 +83,7 @@ class SDL2MixerConan(ConanFile):
 
     def source(self):
         tools.get(**self.conan_data["sources"][self.version])
-        extracted_dir = self.name + "-" + self.version
+        extracted_dir = "SDL2_mixer-" + self.version
         os.rename(extracted_dir, self._source_subfolder)
 
         tools.rmdir(os.path.join(self._source_subfolder, "external"))
