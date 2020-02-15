@@ -82,10 +82,9 @@ class SDL2MixerConan(ConanFile):
                 self.requires.add("tinymidi/20130325@bincrafters/stable")
 
     def source(self):
-        source_url = "https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-%s.tar.gz" % self.version
-        tools.get(source_url,
-                  sha256="b4cf5a382c061cd75081cf246c2aa2f9df8db04bdda8dcdc6b6cca55bede2419")
-        os.rename("SDL2_mixer-" + self.version, self._source_subfolder)
+        tools.get(**self.conan_data["sources"][self.version])
+        extracted_dir = self.name + "-" + self.version
+        os.rename(extracted_dir, self._source_subfolder)
 
         tools.rmdir(os.path.join(self._source_subfolder, "external"))
 
