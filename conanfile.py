@@ -41,7 +41,7 @@ class SDL2MixerConan(ConanFile):
                        "fluidsynth": True,
                        "nativemidi": True,
                        "tinymidi": True}
-    requires = "sdl2/2.0.10@bincrafters/stable"
+    requires = "sdl2/2.0.12@bincrafters/stable"
     _source_subfolder = "source_subfolder"
     _build_subfolder = "build_subfolder"
     _cmake = None
