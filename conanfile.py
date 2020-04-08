@@ -60,7 +60,7 @@ class SDL2MixerConan(ConanFile):
 
     def requirements(self):
         if self.options.flac:
-            self.requires.add("flac/1.3.2@bincrafters/stable")
+            self.requires.add("flac/1.3.3")
         if self.options.mpg123:
             self.requires.add("libmpg123/1.25.13@bincrafters/stable")
         if self.options.mad:
@@ -74,7 +74,7 @@ class SDL2MixerConan(ConanFile):
         if self.options.mikmod:
             self.requires.add("libmikmod/3.3.11.1@bincrafters/stable")
         if self.options.modplug:
-            self.requires.add("libmodplug/0.8.9.0@bincrafters/stable")
+            self.requires.add("libmodplug/0.8.9.0")
         if self.options.fluidsynth:
             self.requires.add("fluidsynth/2.1.1@bincrafters/stable")
         if self.settings.os == "Linux":
