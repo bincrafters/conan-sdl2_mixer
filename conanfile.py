@@ -60,26 +60,26 @@ class SDL2MixerConan(ConanFile):
 
     def requirements(self):
         if self.options.flac:
-            self.requires.add("flac/1.3.3")
+            self.requires("flac/1.3.3")
         if self.options.mpg123:
-            self.requires.add("libmpg123/1.25.13@bincrafters/stable")
+            self.requires("libmpg123/1.25.13@bincrafters/stable")
         if self.options.mad:
-            self.requires.add("libmad/0.15.1b")
+            self.requires("libmad/0.15.1b")
         if self.options.ogg:
-            self.requires.add("ogg/1.3.4")
-            self.requires.add("vorbis/1.3.7")
+            self.requires("ogg/1.3.4")
+            self.requires("vorbis/1.3.7")
         if self.options.opus:
-            self.requires.add("opus/1.3.1")
-            self.requires.add("opusfile/0.11")
+            self.requires("opus/1.3.1")
+            self.requires("opusfile/0.11")
         if self.options.mikmod:
-            self.requires.add("libmikmod/3.3.11.1@bincrafters/stable")
+            self.requires("libmikmod/3.3.11.1@bincrafters/stable")
         if self.options.modplug:
-            self.requires.add("libmodplug/0.8.9.0")
+            self.requires("libmodplug/0.8.9.0")
         if self.options.fluidsynth:
-            self.requires.add("fluidsynth/2.1.1@bincrafters/stable")
+            self.requires("fluidsynth/2.1.1@bincrafters/stable")
         if self.settings.os == "Linux":
             if self.options.tinymidi:
-                self.requires.add("tinymidi/20130325@bincrafters/stable")
+                self.requires("tinymidi/20130325@bincrafters/stable")
 
     def source(self):
         tools.get(**self.conan_data["sources"][self.version])
