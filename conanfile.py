@@ -5,8 +5,8 @@ import os
 class SDL2MixerConan(ConanFile):
     name = "sdl2_mixer"
     version = "2.0.4"
-    description = "Keep it short"
-    topics = ("conan", "sdl2_mixer", "mixer", "audio", "multimedia", "sound", "music")
+    description = "SDL_mixer is a sample multi-channel audio mixer library"
+    topics = ("sdl2_mixer", "mixer", "audio", "multimedia", "sound", "music")
     url = "https://github.com/bincrafters/conan-sdl2_mixer"
     homepage = "https://www.libsdl.org/projects/SDL_mixer/"
     license = "Zlib"
